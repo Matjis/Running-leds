@@ -31,13 +31,30 @@
 #define BuiltInLED								5
 #define ExtButton								7
 
-
+int dir = 0;
 
 static int leds[6]={6,12,11,9,8,10}; // 
 
 void delay(void){
 	for(uint32_t i=0; i < 50000 ; i++);
 }
+
+void leds_run(uint32_t *GPIOA_OUTPUTDATA ){
+	if(dir == 1)
+		for(int i=6; i>=0 ; i--){
+			// set GPIOA pin 6 to on/off with delay for output LED
+			*GPIOA_OUTPUTDATA ^= ( 1 << leds[i]) ;
+			delay();
+		}
+	
+	else
+		for(int i=0; i<6 ; i++){
+			// set GPIOA pin 6 to on/off with delay for output LED
+			*GPIOA_OUTPUTDATA ^= ( 1 << leds[i]) ;
+			delay();
+		}
+
+}  
 
 int main(void)
 {
@@ -75,8 +92,7 @@ int main(void)
 	// Button interrupt configuration
 	
 	//Clean and set GPIOA mode register to input
-	*GPIOA_MDOE &= ~( 3 << ExtButton);
-	//*GPIOA_MDOE |= ( 0 << ( leds[i] *2) ) ;
+	*GPIOA_MDOE &= ~( 3 << ( ExtButton *2) );
 	
 	//Set falling trigger selection register
 	uint32_t *EXTI_FTSR1 = (uint32_t*) (EXTI_FTSR1_REG);
@@ -112,24 +128,20 @@ int main(void)
 
 
 	while(1){
-		for(int i=0; i<5 ; i++){
-		// set GPIOA pin 6 to on/off with delay for output LED
-		*GPIOA_OUTPUTDATA ^= ( 1 << leds[i]) ;
-		delay();
-		}
+		leds_run(GPIOA_OUTPUTDATA);
+	
 	}
 }
 
 void EXTI9_5_IRQHandler(void){
 	delay();
 
-	//
+	// Clean pending interrupt flag register
 	uint32_t *EXTI_PR1 = (uint32_t*) (EXTI_PR1_REG);
 	if(*EXTI_PR1 & ( 1 << ExtButton))
 		*EXTI_PR1 |= ( 1 << ExtButton);
 	
-	uint32_t *GPIOA_OUTPUTDATA = (uint32_t*) (GPIOA_OPTYPE_REG );
-	*GPIOA_OUTPUTDATA ^= ( 1 << leds[5]) ;
+	dir ^= 1;
 	
 }
 
