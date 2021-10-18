@@ -7,15 +7,15 @@
 #define RCC_APB2_ENR_OFFSET						0x60UL
 #define RCC_APB2_ENR_ADDR  						(RCC_BASE_ADDR + RCC_APB2_ENR_OFFSET)
 
-#define	APB1PERIPH_BASE_ADDR					0x48000000UL
+#define	APB1PERIPH_BASE_ADDR						0x48000000UL
 #define GPIOA_BASE_ADDR							APB1PERIPH_BASE_ADDR 
 #define GPIOA_MODE_REG 							(GPIOA_BASE_ADDR + 0x00)
 #define GPIOA_SPEED_REG 						(GPIOA_BASE_ADDR + 0x08)
 #define GPIOA_PUPD_REG 							(GPIOA_BASE_ADDR + 0x0C)
 #define GPIOA_OPTYPE_REG 						(GPIOA_BASE_ADDR + 0x04)
-#define GPIOA_OUTPUTDATA_REG 					(GPIOA_BASE_ADDR + 0x14)
+#define GPIOA_OUTPUTDATA_REG 						(GPIOA_BASE_ADDR + 0x14)
 
-#define	APB2PERIPH_BASE_ADDR					0x40010000UL
+#define	APB2PERIPH_BASE_ADDR						0x40010000UL
 #define	SYSCFG_BASE_ADDR						APB2PERIPH_BASE_ADDR
 #define	SYSCFG_EXTICR1_REG						(SYSCFG_BASE_ADDR + 0x0C)
 #define	EXTI_BASE_ADDR							(APB2PERIPH_BASE_ADDR + 0x0400)
@@ -25,10 +25,10 @@
 #define	EXTI_PR1_REG							(EXTI_BASE_ADDR + 0x14)
 
 #define	IRQ_NO_EXTI9_5							23
-#define NVIC_ISER0								((uint32_t*) 0xE000E100UL)
+#define NVIC_ISER0							((uint32_t*) 0xE000E100UL)
 
-#define BuiltInLED								5
-#define ExtButton								7
+#define BuiltInLED							5
+#define ExtButton							7
 
 
 static int leds[6] = {6,12,11,9,8,10}; // array for LED pin numbers 
