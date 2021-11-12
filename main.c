@@ -39,8 +39,8 @@ void delay(void){
 	for(uint32_t i=0; i < 50000 ; i++);
 }
 
-int main(void)
-{
+int main(void){
+	
 	// Enable RCC for GPIOA
 	uint32_t *pRccAhb2Enr = (uint32_t*) (RCC_AHB2_ENR_ADDR);
 	*pRccAhb2Enr |= (1 << 0);
